@@ -1,0 +1,4 @@
+<h2>COUCOU Je suis la vue accueil</h2>
+<h3>Le chemin et son hash</h3>
+<?= currentPath ?><br/>
+<?= hashedCurrentPath ?>

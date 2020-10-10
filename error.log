@@ -1,0 +1,82 @@
+2020-10-10  21:00:57 => 80.15.206.192 => GET http://54.38.184.22:5001/ CODE 500 ; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 
+Execution error when process '/PHjs/testRouting/index.phjs' : 
+Error: Cannot find module 'auto-loader'
+Require stack:
+- /PHjs/testRouting/autoloader.js
+- 
+- /PHjs/PHjs/lib/main.js
+- /PHjs/start.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:725:27)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.<anonymous> (/PHjs/testRouting/autoloader.js:1:18)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/PHjs/testRouting/autoloader.js',
+    '',
+    '/PHjs/PHjs/lib/main.js',
+    '/PHjs/start.js'
+  ]
+}
+2020-10-10  21:04:59 => 80.15.206.192 => GET http://54.38.184.22:5001/ CODE 500 ; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 
+Execution error when process '/PHjs/testRouting/index.phjs' : 
+Error: Cannot find module 'auto-loader'
+Require stack:
+- /PHjs/testRouting/autoloader.js
+- 
+- /PHjs/PHjs/lib/main.js
+- /PHjs/start.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:725:27)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.<anonymous> (/PHjs/testRouting/autoloader.js:1:18)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/PHjs/testRouting/autoloader.js',
+    '',
+    '/PHjs/PHjs/lib/main.js',
+    '/PHjs/start.js'
+  ]
+}
+2020-10-10  21:11:30 => 80.15.206.192 => GET http://54.38.184.22:5001/ CODE 500 ; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 
+Execution error when process '/PHjs/testRouting/index.phjs' : 
+Error: Cannot find module 'fs-extra'
+Require stack:
+- /PHjs/testRouting/Core/Helpers.js
+- /PHjs/testRouting/auto-loader/index.js
+- /PHjs/testRouting/autoloader.js
+- 
+- /PHjs/PHjs/lib/main.js
+- /PHjs/start.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:725:27)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.<anonymous> (/PHjs/testRouting/Core/Helpers.js:2:12)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/PHjs/testRouting/Core/Helpers.js',
+    '/PHjs/testRouting/auto-loader/index.js',
+    '/PHjs/testRouting/autoloader.js',
+    '',
+    '/PHjs/PHjs/lib/main.js',
+    '/PHjs/start.js'
+  ]
+}

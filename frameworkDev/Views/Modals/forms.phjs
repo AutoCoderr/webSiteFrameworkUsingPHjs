@@ -1,0 +1,30 @@
+<form action="<?= form.config.action ?>" method="<?= form.config.method ?>">
+	<?phjs for (let name in form.fields) {
+		const field = form.fields[name];
+	?>
+		<label><?= field.label ?> :</label>
+		<input
+			type="<?= field.type ?>"
+			name="<?= name ?>"
+			minLength="<?= typeof(field.minLength) != 'undefined' ? field.minLength : '' ?>"
+			maxLength="<?= typeof(field.maxLength) != 'undefined' ? field.maxLength : '' ?>"
+			<?= field.required ? " required='required'" : "" ?>
+		/><br/>
+	<?phjs } ?>
+	<input type="submit" value="<?= form.config.submit ?>"/>
+</form>
+
+<br/>
+<?phjs
+if (typeof(PHJS.session.errors) != "undefined"
+	&& PHJS.session.errors[form.config.actionName] instanceof Array) {
+
+	echo("<ul>");
+	for (let i=0;i<PHJS.session.errors[form.config.actionName].length;i++) {
+		const error = PHJS.session.errors[form.config.actionName][i];
+		echo ("<li style='color: red'>"+error+"</li>");;
+	}
+	echo("</ul>");
+
+	delete PHJS.session.errors[form.config.actionName];
+}

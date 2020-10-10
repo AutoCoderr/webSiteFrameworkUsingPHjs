@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>COUOU</title>
+</head>
+<body>
+	<header>
+		<ul>
+			<li><a href="<?= app.Core.Helpers.getPath('Front', 'index') ?>">Accueil</a></li>
+			<li><a href="<?= app.Core.Helpers.getPath('Forms','register') ?>">S'insrire</a></li>
+		</ul>
+	</header>
+	<?phjs include("../"+view+".phjs", null, true); ?>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?phjs
+	let routes = getJson("routes.json");
+
+	for (let route in routes) {
+		const config = routes[route];
+		if (PHJS.uri == route) {
+			if (!file_exist("Controllers/"+config.controller+"Controller.js")) {
+				die("Le controleur "+config.controller+" n'existe pas");
+			}
+			let c = getFile("Controllers/"+config.controller+"Controller.js");
+			let controller = new c(PHJS);
+			if (typeof(controller[config.action+"Action"]) != "function") {
+				die("L'action "+config.action+" n'existe pas");
+			} else {
+				controller[config.action+"Action"]();
+				--END--
+			}
+		}
+	}
+	die("Aucune route trouvée");
+?>

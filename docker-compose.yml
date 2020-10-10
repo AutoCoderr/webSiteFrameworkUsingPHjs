@@ -1,0 +1,50 @@
+version: '3'
+services:
+  phjs:
+    build: site
+    ports :
+      - "5001:5001"
+    volumes:
+      - .:/PHjs
+    depends_on:
+      - database
+    networks:
+      - phjsDb
+      - phjsExternal
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: phjs_database
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
+    networks:
+      - phjsDb
+      - pmaDb
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - database
+    ports:
+      - "8888:80"
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - pmaDb
+      - pmaExternal
+
+networks:
+  phjsExternal:
+    internal: false
+  pmaExternal:
+    internal: false
+  phjsDb:
+    internal: true
+  pmaDb:
+    internal: true
+

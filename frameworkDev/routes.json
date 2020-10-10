@@ -1,0 +1,14 @@
+{
+  "/": {
+    "controller": "Front",
+    "action": "index"
+  },
+  "/user/register": {
+    "controller": "Forms",
+    "action": "register"
+  },
+  "/user/add": {
+    "controller": "User",
+    "action": "add"
+  }
+}

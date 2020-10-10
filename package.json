@@ -1,0 +1,22 @@
+{
+  "name": "framework-dev",
+  "version": "1.0.0",
+  "description": "A web dev framework using nodejs and the PHjs framework",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AutoCoderr/webSiteFrameworkUsingPHjs.git"
+  },
+  "author": "AutoCoderr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AutoCoderr/webSiteFrameworkUsingPHjs/issues"
+  },
+  "homepage": "https://github.com/AutoCoderr/webSiteFrameworkUsingPHjs#readme",
+  "dependencies": {
+    "fs-extra": "^9.0.1"
+  }
+}
