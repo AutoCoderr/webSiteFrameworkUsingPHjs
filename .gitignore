@@ -3,3 +3,6 @@
 /finish.js
 /db_data
 /node_modules
+/access.log
+/error.log
+/.idea
