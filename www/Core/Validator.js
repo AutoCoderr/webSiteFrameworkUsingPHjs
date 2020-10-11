@@ -7,19 +7,11 @@ module.exports =
 class Validator {
 	datas;
 
-	constructor() {
-		this.datas = {};
-	}
+	constructor() {}
 
 
 	checkForm(PHJS,form) {
-		if (form.config.method === "GET") {
-			this.datas = PHJS.args.GET;
-		} else if (form.config.method === "POST") {
-			for (let key in PHJS.args.POST) {
-				this.datas[key] = PHJS.args.POST[key].content;
-			}
-		}
+		this.datas = Helpers.getData(form.config.method,PHJS.args);
 		let errors = [];
 
 		if (Object.keys(this.datas).length !== Object.keys(form.fields).length) {

@@ -5,6 +5,22 @@ module.exports = class Helpers {
     constructor() {
     }
 
+    static getData(method,args) {
+        if (method === "GET") {
+            return args.GET;
+        }
+        if (method === "POST") {
+            let datas = [];
+            for (let key in args.POST) {
+                if (args.POST[key].type === "text") {
+                    datas[key] = args.POST[key].content;
+                }
+            }
+            return datas;
+        }
+        return {};
+    }
+
     static hashString(str) {
         let sha1 = crypto.createHash("sha1");
         sha1.update(str);

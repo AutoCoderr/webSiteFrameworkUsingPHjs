@@ -1,3 +1,18 @@
+<?phjs
+	let datas;
+
+	if (typeof(PHJS.session.fields) != "undefined" &&
+		typeof(PHJS.session.fields[form.config.actionName]) != "undefined") {
+		datas = PHJS.session.fields[form.config.actionName];
+		delete PHJS.session.fields[form.config.actionName];
+	} else {
+		datas = {};
+		for (let name in form.fields) {
+			datas[name] = "";
+		}
+	}
+?>
+
 <form action="<?= form.config.action ?>" method="<?= form.config.method ?>">
 	<?phjs for (let name in form.fields) {
 		const field = form.fields[name];
@@ -6,6 +21,7 @@
 		<input
 			type="<?= field.type ?>"
 			name="<?= name ?>"
+			value="<?= datas[name] ?>"
 			minLength="<?= typeof(field.minLength) != 'undefined' ? field.minLength : '' ?>"
 			maxLength="<?= typeof(field.maxLength) != 'undefined' ? field.maxLength : '' ?>"
 			<?= field.required ? " required='required'" : "" ?>

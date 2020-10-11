@@ -1,5 +1,9 @@
 const app = require("./www/autoloader");
 
+const Helpers = app.Core.Helpers,
+	Validator = app.Core.Validator,
+	Register = app.Forms.Register;
+
 module.exports = class UserController {
 
 	PHJS;
@@ -12,12 +16,17 @@ module.exports = class UserController {
 		if (typeof(this.PHJS.session.errors) == "undefined") {
 			this.PHJS.session.errors = {};
 		}
-		const form = app.Forms.Register();
-		const validator = new app.Core.Validator();
+		const form = Register();
+		const validator = new Validator();
 		this.PHJS.session.errors[form.config.actionName] = validator.checkForm(this.PHJS,form);
 		if (this.PHJS.session.errors[form.config.actionName].length === 0) {
-			this.PHJS.echo("C'est OK");
+
 		} else {
+			if (typeof(this.PHJS.session.fields) == "undefined") {
+				this.PHJS.session.fields = {};
+			}
+			this.PHJS.session.fields[form.config.actionName] = { ...Helpers.getData(form.config.method,this.PHJS.args)};
+
 			this.PHJS.redirectTo(this.PHJS.referer);
 		}
 	}
