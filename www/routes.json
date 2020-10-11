@@ -10,5 +10,9 @@
   "/user/add": {
     "controller": "User",
     "action": "add"
+  },
+  "/user/logout": {
+    "controller": "User",
+    "action": "logout"
   }
 }

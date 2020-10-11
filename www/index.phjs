@@ -1,4 +1,5 @@
 <?phjs
+
 	let routes = getJson("routes.json");
 
 	for (let route in routes) {
@@ -8,12 +9,14 @@
 				die("Le controleur "+config.controller+" n'existe pas");
 			}
 			let c = getFile("Controllers/"+config.controller+"Controller.js");
-			let controller = new c(PHJS);
+			let controller = new c(PHJS, () => {
+				--END--
+			});
 			if (typeof(controller[config.action+"Action"]) != "function") {
 				die("L'action "+config.action+" n'existe pas");
 			} else {
 				controller[config.action+"Action"]();
-				--END--
+				return;
 			}
 		}
 	}

@@ -3,24 +3,19 @@ const app = require("./www/autoloader");
 module.exports = class TestController {
 
 	PHJS;
+	callback;
 
-	constructor(PHJS) {
+	constructor(PHJS, callback) {
 		this.PHJS = PHJS;
+		this.callback = callback;
 	}
 
 
 	indexAction() {
 		let view = new app.Core.View(this.PHJS, "accueil");
 
-		/*let user = app.Models.User.create({
-			firstname: "Julien",
-			lastname: "BOUVET",
-			email: "ntm@truc.com",
-			password: app.Core.Helpers.hashString("abcd")
-		});*/
-
 		view.assign("currentPath", this.PHJS.cd);
-		view.assign("hashedCurrentPath", app.Core.Helpers.hashString(this.PHJS.cd));
 		view.render();
+		this.callback();
 	}
 };

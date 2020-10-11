@@ -21,7 +21,7 @@ module.exports = class Helpers {
         return {};
     }
 
-    static hashString(str) {
+    static hashPassword(str) {
         let sha1 = crypto.createHash("sha1");
         sha1.update(str);
         return sha1.digest("hex");

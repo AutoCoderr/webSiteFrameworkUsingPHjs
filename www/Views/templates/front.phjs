@@ -8,7 +8,11 @@
 	<header>
 		<ul>
 			<li><a href="<?= app.Core.Helpers.getPath('Front', 'index') ?>">Accueil</a></li>
-			<li><a href="<?= app.Core.Helpers.getPath('Forms','register') ?>">S'insrire</a></li>
+			<?phjs if (typeof(PHJS.session.id) == 'undefined') { ?>
+				<li><a href="<?= app.Core.Helpers.getPath('Forms','register') ?>">S'insrire</a></li>
+			<?phjs } else { ?>
+				<li><a href="<?= app.Core.Helpers.getPath('User','logout') ?>">Se deconnecter</a></li>
+			<?phjs } ?>
 		</ul>
 	</header>
 	<?phjs include("../"+view+".phjs", null, true); ?>

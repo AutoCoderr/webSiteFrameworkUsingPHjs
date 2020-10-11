@@ -6,7 +6,8 @@ module.exports = function Register() {
 			action: app.Core.Helpers.getPath("User", "add"),
 			method: "POST",
 			submit: "S'inscrire",
-			actionName: "register"
+			actionName: "register",
+			msgError: "Erreur lors de l'inscription"
 		},
 		fields: {
 			firstname: {
