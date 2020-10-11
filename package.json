@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/AutoCoderr/webSiteFrameworkUsingPHjs#readme",
   "dependencies": {
-    "fs-extra": "^9.0.1"
+    "auto-loader": "^0.2.0",
+    "fs-extra": "^9.0.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
   }
 }

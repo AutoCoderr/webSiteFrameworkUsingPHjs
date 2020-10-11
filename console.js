@@ -1,4 +1,4 @@
-const Migrations = require("./frameworkDev/Core/DB/Migrations");
+const Migrations = require("./www/Core/DB/Migrations");
 
 const actions = {
 	migration: {

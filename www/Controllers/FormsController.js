@@ -1,4 +1,4 @@
-const app = require("./frameworkDev/autoloader");
+const app = require("./www/autoloader");
 
 module.exports = class FormsController {
 
