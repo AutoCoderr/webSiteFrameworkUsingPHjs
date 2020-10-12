@@ -9,9 +9,11 @@
 		<ul>
 			<li><a href="<?= app.Core.Helpers.getPath('Front', 'index') ?>">Accueil</a></li>
 			<?phjs if (typeof(PHJS.session.id) == 'undefined') { ?>
+				<li><a href="<?= app.Core.Helpers.getPath('Forms', 'login') ?>">Se connecter</a></li>
 				<li><a href="<?= app.Core.Helpers.getPath('Forms','register') ?>">S'insrire</a></li>
 			<?phjs } else { ?>
 				<li><a href="<?= app.Core.Helpers.getPath('User','logout') ?>">Se deconnecter</a></li>
+				<li><?= PHJS.session.firstname+" "+PHJS.session.lastname ?></li>
 			<?phjs } ?>
 		</ul>
 	</header>

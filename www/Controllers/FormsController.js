@@ -16,4 +16,10 @@ module.exports = class FormsController {
 		this.callback();
 	}
 
+	loginAction() {
+		let view = new app.Core.View(this.PHJS, "login");
+		view.render();
+		this.callback();
+	}
+
 };

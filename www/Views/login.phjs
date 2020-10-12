@@ -1,0 +1,2 @@
+<h2>Se connecter</h2>
+<?phjs addModal(PHJS, "forms", app.Forms.Login()) ?>
