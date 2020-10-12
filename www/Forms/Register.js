@@ -32,7 +32,8 @@ module.exports = function Register() {
 				required: true,
 				maxLength: 50,
 				minLength: 3,
-				msgError: "Format d'email incorrect"
+				msgError: "Format d'email incorrect",
+				uniq: {table: "User", column: "email", msgError: "Compte déjà existant"}
 			},
 			password: {
 				type: "password",

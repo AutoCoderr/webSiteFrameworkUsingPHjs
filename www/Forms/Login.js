@@ -7,7 +7,7 @@ module.exports = function Login() {
 			method: "POST",
 			submit: "Se connecter",
 			actionName: "login",
-			msgError: "Erreur lors de la connexion"
+			msgError: "Connexion échouée"
 		},
 		fields: {
 			email: {

@@ -10,7 +10,7 @@ class Validator {
 	constructor() {}
 
 
-	checkForm(PHJS,form) {
+	checkForm(PHJS,form,callback) {
 		this.datas = Helpers.getData(form.config.method,PHJS.args);
 		let errors = [];
 
@@ -18,36 +18,69 @@ class Validator {
 			return ["Tentative de hack!!"];
 		}
 
-		for (let name in form.fields) {
-			const field = form.fields[name];
+		this.checkFieldsLoop(Object.keys(form.fields), form.fields, [], callback);
+	}
+
+	checkFieldsLoop(names,fields,errors,callback, i=0) {
+		if (i >= names.length) {
+			callback(errors);
+		} else {
+			const name = names[i];
+			const field = fields[name];
 
 			if (typeof(this.datas[name]) == "undefined") {
 				errors.push("Champs '"+name+"' manquant!");
-				continue;
+				this.checkFieldsLoop(names,fields,errors,callback,i+1);
+				return;
 			}
 
 			if (field.required && this.datas[name] === "") {
 				errors.push(("Champs '"+name+"' vide!"));
-				continue;
+				this.checkFieldsLoop(names,fields,errors,callback,i+1);
+				return;
 			}
 
 			if (this.datas[name].length < field.minLength && this.datas[name].length > field.maxLength) {
-				errors.push(field.msgError)
+				errors.push(field.msgError);
+				this.checkFieldsLoop(names,fields,errors,callback,i+1);
+				return;
 			}
 
 			if (
 				(this.datas[name].length < field.minLength || this.datas[name].length > field.maxLength) ||
 
 				(typeof(this["check"+Helpers.ucFirst(field.type)]) == "function" &&
-				!this["check"+Helpers.ucFirst(field.type)](field,this.datas[name]))
+					!this["check"+Helpers.ucFirst(field.type)](field,this.datas[name]))
 			) {
 				errors.push(field.msgError);
+				this.checkFieldsLoop(names,fields,errors,callback,i+1);
+				return;
+
+			} else if (typeof(field.uniq) != "undefined") {
+				console.log("uniq => ");
+				console.log(field.uniq);
+
+				let model = app.Models[field.uniq.table];
+				console.log("model");
+				console.log(model);
+
+				let where = {};
+				where[name] = this.datas[name];
+				model.findOne({
+					where: where
+				}).then((elem) => {
+					if (elem != null) {
+						errors.push(field.uniq.msgError);
+					}
+					this.checkFieldsLoop(names,fields,errors,callback,i+1);
+				});
+				return;
 			}
 
+			this.checkFieldsLoop(names,fields,errors,callback,i+1);
 		}
-
-		return errors;
 	}
+
 
 	checkPassword(field,password) {
 		return !((typeof(field.confirmWith) != "undefined" &&

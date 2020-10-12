@@ -23,30 +23,22 @@ module.exports = class UserController {
 		const form = Register();
 		const validator = new Validator();
 		const datas = Helpers.getData(form.config.method,this.PHJS.args);
-		this.PHJS.session.errors[form.config.actionName] = validator.checkForm(this.PHJS,form);
-		if (this.PHJS.session.errors[form.config.actionName].length === 0) {
-			User.findOne({
-				where: {
-					email: datas.email
-				}
-			}).then((user) => {
-				if (user != null) {
-					this.PHJS.session.errors[form.config.actionName] = [form.config.msgError];
-					this.getErrorAndRedirect(form,datas);
-				} else {
-					User.create({
-						firstname: datas.firstname,
-						lastname: datas.lastname,
-						email: datas.email,
-						password: Helpers.hashPassword(datas.password)
-					}).then(this.loginAndRedirect);
-				}
-			});
-			return;
-		}
-		if (this.PHJS.session.errors[form.config.actionName].length > 0) {
-			this.getErrorAndRedirect(form,datas);
-		}
+		validator.checkForm(this.PHJS,form, (errors) => {
+			this.PHJS.session.errors[form.config.actionName] = errors;
+			if (this.PHJS.session.errors[form.config.actionName].length === 0) {
+				User.create({
+					firstname: datas.firstname,
+					lastname: datas.lastname,
+					email: datas.email,
+					password: Helpers.hashPassword(datas.password)
+				}).then(this.loginAndRedirect);
+				return;
+			}
+			if (this.PHJS.session.errors[form.config.actionName].length > 0) {
+				this.getErrorAndRedirect(form,datas);
+			}
+		});
+
 	}
 
 	logoutAction() {
