@@ -1,11 +1,23 @@
-const app = require("./../../autoloader");
-const env = require("./../../env");
+const app = require("./../autoloader");
+const env = require("./../env");
 const Sequelize = require("sequelize");
+const mysql = require("mysql2");
 
-module.exports = class Migrations extends app.Core.DB.DB {
+module.exports = class DB {
+
+	path;
+	sequelize;
+	conn;
 
 	constructor() {
-		super();
+		this.sequelize = new Sequelize(env.DB_DRIVER+"://"+env.DB_USER+":"+env.DB_PASSWORD+"@"+env.DB_HOST+":"+env.DB_PORT+"/"+env.DB_NAME, { operatorsAliases: false });
+		this.conn = mysql.createConnection({
+			host: env.DB_HOST,
+			user: env.DB_USER,
+			password: env.DB_PASSWORD,
+			port: env.DB_PORT,
+			database: env.DB_NAME
+		});
 	}
 
 	migrate()  {
@@ -75,12 +87,17 @@ module.exports = class Migrations extends app.Core.DB.DB {
 				type: Sequelize.STRING(50),
 				allowNull: false
 			},
+			permission: {
+				type: Sequelize.ENUM(["admin", "seller", "user"]),
+				allowNull: false,
+				defaultValue: "user"
+			},
 			password: {
 				type: Sequelize.STRING(40),
 				allowNull: false
 			}
 		},
-		jouet: {
+		produit: {
 			id: {
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
@@ -95,10 +112,21 @@ module.exports = class Migrations extends app.Core.DB.DB {
 				type: Sequelize.STRING(255),
 				allowNull: false
 			},
+			units: {
+				type: Sequelize.INTEGER,
+				defaultValue: 0
+			}
+		},
+		exemplaires: {
+			units: {
+				type: Sequelize.INTEGER,
+				defaultValue: 1
+			},
 			belongsTo: [
-				"user"
+				"user",
+				'produit'
 			]
 		}
-	};
 
+	};
 };

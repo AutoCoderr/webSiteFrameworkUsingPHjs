@@ -1,14 +1,14 @@
-const Migrations = require("./www/Core/DB/Migrations");
+const DB = require("./www/Core/DB");
 
 const actions = {
 	migration: {
 		migrate: function() { // console migration:migrate
-			const migration = new Migrations();
-			migration.migrate();
+			const db = new DB();
+			db.migrate();
 		},
 		drop: function() { // console migration:drop
-			const migration = new Migrations();
-			migration.drop();
+			const db = new DB();
+			db.drop();
 		},
 		default: function () {
 			console.log("Possibles options :");
