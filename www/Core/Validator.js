@@ -57,18 +57,11 @@ class Validator {
 				return;
 
 			} else if (typeof(field.uniq) != "undefined") {
-				console.log("uniq => ");
-				console.log(field.uniq);
-
-				let model = app.Models[field.uniq.table];
-				console.log("model");
-				console.log(model);
+				let manager = new app.Managers[field.uniq.table+"Manager"]();
 
 				let where = {};
 				where[name] = this.datas[name];
-				model.findOne({
-					where: where
-				}).then((elem) => {
+				manager.findOne(where).then((elem) => {
 					if (elem != null) {
 						errors.push(field.uniq.msgError);
 					}

@@ -4,7 +4,7 @@ const Helpers = app.Core.Helpers,
 	Validator = app.Core.Validator,
 	Register = app.Forms.Register,
 	Login = app.Forms.Login,
-	User = app.Models.User;
+	UserManager = app.Managers.UserManager;
 
 module.exports = class UserController {
 
@@ -26,15 +26,8 @@ module.exports = class UserController {
 		validator.checkForm(this.PHJS,form, (errors) => {
 			this.PHJS.session.errors[form.config.actionName] = errors;
 			if (this.PHJS.session.errors[form.config.actionName].length === 0) {
-				User.create({
-					firstname: datas.firstname,
-					lastname: datas.lastname,
-					email: datas.email,
-					password: Helpers.hashPassword(datas.password)
-				}).then(this.loginAndRedirect);
-				return;
-			}
-			if (this.PHJS.session.errors[form.config.actionName].length > 0) {
+				(new UserManager()).createUser(datas.firstname, datas.lastname, datas.email, datas.password).then(this.loginAndRedirect);
+			} else {
 				this.getErrorAndRedirect(form,datas);
 			}
 		});
@@ -54,12 +47,7 @@ module.exports = class UserController {
 	connectAction() {
 
 		let datas = Helpers.getData("POST",this.PHJS.args);
-		User.findOne({
-			where: {
-				email: datas.email,
-				password: Helpers.hashPassword(datas.password)
-			}
-		}).then((user) => {
+		(new UserManager()).loginUser(datas.email, datas.password).then((user) => {
 			if (!user) {
 				if (typeof(this.PHJS.session.errors) == "undefined") {
 					this.PHJS.session.errors = {};

@@ -89,7 +89,6 @@ module.exports = class DB {
 			},
 			permission: {
 				type: Sequelize.ENUM(["admin", "seller", "user"]),
-				allowNull: false,
 				defaultValue: "user"
 			},
 			password: {
@@ -117,7 +116,7 @@ module.exports = class DB {
 				defaultValue: 0
 			}
 		},
-		exemplaires: {
+		exemplaire: {
 			units: {
 				type: Sequelize.INTEGER,
 				defaultValue: 1
