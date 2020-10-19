@@ -7,7 +7,6 @@ class Model {
 
     populate = (entity,callback = null) => {
         if (entity == null) {
-            if (callback != null) callback(null);
             return null;
         }
 
@@ -16,14 +15,13 @@ class Model {
                 this[key] = entity.dataValues[key];
             }
         }
-        if (callback != null) callback(this);
+        return this;
     }
 
-    findById(id,callback) {
+    async findById(id,callback) {
         let manager = new app.Managers[this.table+"Manager"]();
-        manager.findById(id).then((user) => {
-            this.populate(user,callback);
-        });
+        let user = await manager.findById(id);
+        return this.populate(user,callback);
     }
 
 }

@@ -14,16 +14,26 @@ module.exports = class TestController {
 	}
 
 
-	indexAction() {
+	async indexAction() {
 		let view = new app.Core.View(this.PHJS, "accueil");
 
-		(new User()).findById(12, (user) => {
-			if (user != null) {
-				console.log(user);
-			} else {
-				console.log("doesn't exist");
-			}
-		});
+
+		// Examples of using managers and models to modify or create elements in database
+
+		/*let user = await (new User()).findById(1);
+		if (user != null) {
+			user.setFirstname("  Banana    ");
+			(new UserManager()).save(user);
+		} else {
+			console.log("doesn't exist");
+		}*/
+		/*let user = new User();
+		user.setFirstname("Toto");
+		user.setLastname("du 78");
+		user.setEmail("test@test.com");
+		user.setPassword("1234");
+		user.setPermission("user");
+		(new UserManager()).save(user);*/
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();
