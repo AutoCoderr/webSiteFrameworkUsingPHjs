@@ -3,7 +3,7 @@ services:
   phjs:
     build: site
     ports :
-      - "5001:5001"
+      - "80:80"
     volumes:
       - .:/frameworkDev
     depends_on:
