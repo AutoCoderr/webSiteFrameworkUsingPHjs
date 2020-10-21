@@ -1,26 +1,26 @@
 {
-  "/": {
-    "controller": "Front",
-    "action": "index"
-  },
-  "/user/register": {
-    "controller": "Forms",
-    "action": "register"
-  },
-  "/user/add": {
-    "controller": "User",
-    "action": "add"
-  },
-  "/user/login": {
-    "controller": "Forms",
-    "action": "login"
-  },
-  "/user/connect": {
-    "controller": "User",
-    "action": "connect"
-  },
-  "/user/logout": {
-    "controller": "User",
-    "action": "logout"
-  }
+	"/": {
+		"controller": "Front",
+		"action": "index"
+	},
+	"/user/register": {
+		"controller": "Forms",
+		"action": "register"
+	},
+	"/user/add": {
+		"controller": "User",
+		"action": "add"
+	},
+	"/user/login": {
+		"controller": "Forms",
+		"action": "login"
+	},
+	"/user/connect": {
+		"controller": "User",
+		"action": "connect"
+	},
+	"/user/logout": {
+		"controller": "User",
+		"action": "logout"
+	}
 }

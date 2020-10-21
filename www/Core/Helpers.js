@@ -36,5 +36,12 @@ module.exports = class Helpers {
         return "#";
     }
 
+    static replaceAll(str,A,B) {
+        while (str.replace(A,B) != str) {
+            str = str.replace(A,B);
+        }
+        return str;
+    }
+
     static ucFirst = str => str.charAt(0).toUpperCase()+str.slice(1);
 };
