@@ -1,0 +1,3 @@
+<h1>Welcome to <?= controller_name ?>!</h1>
+
+<h2>You can edit this view at : produits/index.phjs</h2>

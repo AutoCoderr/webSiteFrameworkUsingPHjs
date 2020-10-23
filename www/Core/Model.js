@@ -1,11 +1,9 @@
 const app = require("./../autoloader");
 
-const Manager = app.Core.Manager;
-
 module.exports =
 class Model {
 
-    populate = (entity,callback = null) => {
+    populate = (entity) => {
         if (entity == null) {
             return null;
         }
@@ -18,10 +16,20 @@ class Model {
         return this;
     }
 
-    async findById(id,callback) {
+    static async findAll() {
         let manager = new app.Managers[this.table+"Manager"]();
-        let user = await manager.findById(id);
-        return this.populate(user,callback);
+        let entities = await manager.findAll();
+        let models = [];
+        for (let i=0;i<entities.length;i++) {
+            models.push((new app.Models[this.table]).populate(entities[i]))
+        }
+        return models;
+    }
+
+    static async findById(id) {
+        let manager = new app.Managers[this.table+"Manager"]();
+        let entity = await manager.findById(id);
+        return (new app.Models[this.table]).populate(entity);
     }
 
 }

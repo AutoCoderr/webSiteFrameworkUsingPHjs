@@ -7,6 +7,10 @@ class Manager {
 		this.ModelSequelize = ModelSequelize;
 	}
 
+	findAll() {
+		return this.ModelSequelize.findAll();
+	}
+
 	findById(id) {
 		return this.findOne({id: id});
 	}
@@ -25,7 +29,7 @@ class Manager {
 					entity[key] = model[key];
 				}
 			}
-			await entity.save();
+			return entity.save();
 		} else {
 			let config = {};
 			for (let key in model) {
@@ -33,7 +37,7 @@ class Manager {
 					config[key] = model[key];
 				}
 			}
-			await this.ModelSequelize.create(config);
+			return this.ModelSequelize.create(config);
 		}
 	}
 };

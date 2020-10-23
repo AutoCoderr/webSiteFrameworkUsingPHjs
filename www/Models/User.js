@@ -6,7 +6,7 @@ const Helpers = app.Core.Helpers,
 module.exports =
 class User extends Model {
 
-    table = "User"
+    static table = "User";
 
     id = null;
     email = null;
