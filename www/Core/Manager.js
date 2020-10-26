@@ -1,14 +1,22 @@
+const app = require("../autoloader");
+
+const Helpers = app.Core.Helpers;
+
 module.exports =
 class Manager {
 
 	ModelSequelize;
 
+	static getTable(name) {
+		return (new app.Managers[Helpers.ucFirst(name)+"Manager"]()).ModelSequelize;
+	}
+
 	constructor(ModelSequelize) {
 		this.ModelSequelize = ModelSequelize;
 	}
 
-	findAll() {
-		return this.ModelSequelize.findAll();
+	findAll(args = {}) {
+		return this.ModelSequelize.findAll(args);
 	}
 
 	findById(id) {

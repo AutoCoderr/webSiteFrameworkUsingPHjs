@@ -1,7 +1,11 @@
 const app = require("./www/autoloader");
 
 const User = app.Models.User,
-	UserManager = app.Managers.UserManager;
+	Produit = app.Models.Produit,
+	UserManager = app.Managers.UserManager,
+	ProduitManager = app.Managers.ProduitManager,
+	ExemplaireManager = app.Managers.ExemplaireManager,
+	Manager = app.Core.Manager;
 
 module.exports = class TestController {
 
@@ -38,6 +42,19 @@ module.exports = class TestController {
 		}*/
 		/*let users = await User.findAll();
 		this.PHJS.print_r(users);*/
+
+		/*for (let i=0;i<5;i++) {
+			let produit = new Produit();
+			produit.setName("Machin "+(i+1));
+			produit.setDescription("Il s'agit d'un machin");
+			produit.setUnits(12);
+			(new ProduitManager()).save(produit);
+		}*/
+
+		(new ExemplaireManager()).findAll().then(res => {
+			console.log(res);
+		});
+
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();
