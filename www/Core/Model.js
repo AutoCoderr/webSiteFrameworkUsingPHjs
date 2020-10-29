@@ -1,4 +1,7 @@
-const app = require("./../autoloader");
+const app = require("./../autoloader"),
+    env = require("./../env");
+
+const Helpers = app.Core.Helpers;
 
 module.exports =
 class Model {
@@ -9,12 +12,25 @@ class Model {
         }
 
         for (let key in entity.dataValues) {
+            if (key !== key.replace(env.DB_PREFIX, "")) {
+                key = key.replace(env.DB_PREFIX, "");
+                entity.dataValues[key] = entity.dataValues[env.DB_PREFIX+key];
+                delete entity.dataValues[env.DB_PREFIX+key];
+            }
             if (typeof(this[key]) != "undefined" ) {
-                this[key] = entity.dataValues[key];
+                if (typeof(entity.dataValues[key]) == "object") {
+                    if (typeof(app.Models[Helpers.ucFirst(key)]) != "undefined") {
+                        this[key] = (new app.Models[Helpers.ucFirst(key)]()).populate(entity.dataValues[key]);
+                    } else {
+                        this[key] = entity.dataValues[key].dataValues;
+                    }
+                } else {
+                    this[key] = entity.dataValues[key];
+                }
             }
         }
         return this;
-    }
+    };
 
     static async findAll() {
         let manager = new app.Managers[this.table+"Manager"]();

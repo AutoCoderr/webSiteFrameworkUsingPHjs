@@ -15,8 +15,8 @@ class Manager {
 		this.ModelSequelize = ModelSequelize;
 	}
 
-	findAll(args = {}) {
-		return this.ModelSequelize.findAll(args);
+	findAll() {
+		return this.ModelSequelize.findAll();
 	}
 
 	findById(id) {
