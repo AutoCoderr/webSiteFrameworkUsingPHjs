@@ -15,17 +15,17 @@ class Manager {
 		this.ModelSequelize = ModelSequelize;
 	}
 
-	findAll() {
-		return this.ModelSequelize.findAll();
+	findAll(args) {
+		return this.ModelSequelize.findAll(args);
 	}
 
 	findById(id) {
 		return this.findOne({id: id});
 	}
 
-	findOne(where) {
+	findOne(where,args = {}) {
 		return this.ModelSequelize.findOne({
-			where: where
+			where: where, ...args
 		});
 	}
 

@@ -30,6 +30,10 @@ class ExemplaireManager extends app.Core.Manager {
 	findAll() {
 		return ExemplaireSequelize.findAll({ include: [Manager.getTable("user"), Manager.getTable("produit")]});
 	}
+
+	findById(id) {
+		return this.findOne({id: id}, { include: [Manager.getTable("user"), Manager.getTable("produit")] });
+	}
 }
 
 module.exports = ExemplaireManager;

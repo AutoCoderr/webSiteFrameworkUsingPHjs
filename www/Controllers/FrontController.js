@@ -56,9 +56,9 @@ module.exports = class TestController {
 			console.log(res);
 		});*/
 
-		let exemplaires = await Exemplaire.findAll();
+		let exemplaire = await Exemplaire.findById(1);
 
-		this.PHJS.print_r(exemplaires);
+		this.PHJS.print_r(exemplaire);
 
 
 		view.assign("currentPath", this.PHJS.cd);
