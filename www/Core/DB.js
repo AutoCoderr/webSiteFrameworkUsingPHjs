@@ -30,9 +30,26 @@ module.exports = class DB {
 				delete migration.belongsTo;
 			}
 
-			this.tables[tableName] = this.sequelize.define(env.DB_PREFIX+tableName, migration);
-			for (let i=0;i<belongsTo.length;i++) {
-				this.tables[tableName].belongsTo(this.tables[belongsTo[i]]);
+			let hasMany = [];
+			if (typeof(migration.hasMany) == "string" || migration.hasMany instanceof Array) {
+				hasMany = (migration.hasMany instanceof Array) ? migration.hasMany : [migration.hasMany];
+				delete migration.hasMany;
+			}
+
+			this.tables[tableName] = {};
+			this.tables[tableName].table = this.sequelize.define(env.DB_PREFIX+tableName, migration);
+			this.tables[tableName].belongsTo = belongsTo;
+			this.tables[tableName].hasMany = hasMany;
+		}
+		for (let tableName in this.tables) {
+			const table = this.tables[tableName];
+			for (let belong of table.belongsTo) {
+				console.log(tableName+" belongs to "+belong);
+				table.table.belongsTo(this.tables[belong].table);
+			}
+			for (let has of table.hasMany) {
+				console.log(tableName+" has many "+has);
+				table.table.hasMany(this.tables[has].table);
 			}
 		}
 		this.executeMigrate(Object.keys(this.tables), 0);
@@ -44,7 +61,7 @@ module.exports = class DB {
 			this.sequelize.close();
 			return;
 		}
-		let table = this.tables[listTables[i]];
+		let table = this.tables[listTables[i]].table;
 		table.sync().then(() => {
 			console.log(listTables[i]+" created!");
 			this.executeMigrate(listTables,i+1)
@@ -94,7 +111,8 @@ module.exports = class DB {
 			password: {
 				type: Sequelize.STRING(40),
 				allowNull: false
-			}
+			},
+			hasMany: "exemplaire"
 		},
 		produit: {
 			id: {
@@ -114,7 +132,8 @@ module.exports = class DB {
 			units: {
 				type: Sequelize.INTEGER,
 				defaultValue: 0
-			}
+			},
+			hasMany: "exemplaire"
 		},
 		exemplaire: {
 			units: {

@@ -1,19 +1,15 @@
 const app = require("./../autoloader");
-const env = require("./../env");
 const { Model } = require('sequelize');
 
-const db = new app.Core.DB();
-
-class ProduitSequelize extends Model {
-}
-
-ProduitSequelize.init(db.migrations.produit, {
-	sequelize: db.sequelize,
-	modelName: env.DB_PREFIX+"produit"
-});
+const Manager = app.Core.Manager;
 
 class ProduitManager extends app.Core.Manager {
-	constructor() {
+	constructor(generateRelations = true) {
+		class ProduitSequelize extends Model {
+		}
+
+		Manager.generateSequelizeManager("produit", ProduitSequelize, generateRelations);
+
 		super(ProduitSequelize);
 	}
 }

@@ -15,6 +15,8 @@ class User extends Model {
     permission = null;
     password = null;
 
+    exemplaires = null;
+
     setId(id) {
         this.id = id;
     }
@@ -58,6 +60,10 @@ class User extends Model {
     }
     getPassword() {
         return this.password;
+    }
+
+    getExemplaires() {
+        return this.exemplaires;
     }
 
 }

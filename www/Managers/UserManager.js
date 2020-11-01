@@ -1,21 +1,21 @@
 const app = require("./../autoloader");
-const env = require("./../env");
 const { Model } = require('sequelize');
 
-const db = new app.Core.DB(),
-	Helpers = app.Core.Helpers;
-
-class UserSequelize extends Model {
-}
-
-UserSequelize.init(db.migrations.user, {
-	sequelize: db.sequelize,
-	modelName: env.DB_PREFIX+"user"
-});
+const Helpers = app.Core.Helpers,
+	Manager = app.Core.Manager;
 
 class UserManager extends app.Core.Manager {
-	constructor() {
+	constructor(generateRelations = true) {
+		class UserSequelize extends Model {
+		}
+
+		Manager.generateSequelizeManager("user", UserSequelize, generateRelations);
+
 		super(UserSequelize);
+	}
+
+	findById(id) {
+		return this.findOne({id: id}, {include: Manager.getTable("exemplaire")});
 	}
 
 	createUser(firstname,lastname,email,password,permission = null) {
@@ -28,7 +28,7 @@ class UserManager extends app.Core.Manager {
 		if (permission != null)  {
 			config.permission = permission;
 		}
-		return UserSequelize.create(config);
+		return this.ModelSequelize.create(config);
 	}
 
 	loginUser(email,password) {
