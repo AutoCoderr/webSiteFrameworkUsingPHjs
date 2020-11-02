@@ -11,6 +11,7 @@ class Produit extends Model {
     name = null;
     description = null;
     units = null;
+    exemplaires = null;
 
     setId(id) {
         this.id = id;
@@ -38,6 +39,10 @@ class Produit extends Model {
     }
     getUnits() {
         return this.units;
+    }
+
+    getExemplaires() {
+        return this.exemplaires;
     }
 
 };

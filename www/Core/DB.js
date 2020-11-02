@@ -1,4 +1,3 @@
-const app = require("./../autoloader");
 const env = require("./../env");
 const Sequelize = require("sequelize");
 const mysql = require("mysql2");
@@ -44,11 +43,9 @@ module.exports = class DB {
 		for (let tableName in this.tables) {
 			const table = this.tables[tableName];
 			for (let belong of table.belongsTo) {
-				console.log(tableName+" belongs to "+belong);
 				table.table.belongsTo(this.tables[belong].table);
 			}
 			for (let has of table.hasMany) {
-				console.log(tableName+" has many "+has);
 				table.table.hasMany(this.tables[has].table);
 			}
 		}

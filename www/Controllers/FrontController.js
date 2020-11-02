@@ -56,11 +56,11 @@ module.exports = class TestController {
 			console.log(res);
 		});*/
 
-		let user = await User.findById(1);
+		let produit = await Produit.findById(6);
 
-		this.PHJS.print_r(user);
+		this.PHJS.print_r(produit);
 		this.PHJS.echo("<br/>");
-		this.PHJS.print_r(await user.getExemplaires()[0].getProduit());
+		this.PHJS.print_r(await (await produit.getExemplaires()[0].getUser()).getExemplaires()[0].getProduit());
 
 
 		view.assign("currentPath", this.PHJS.cd);

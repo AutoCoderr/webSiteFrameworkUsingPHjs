@@ -12,6 +12,10 @@ class ProduitManager extends app.Core.Manager {
 
 		super(ProduitSequelize);
 	}
+
+	findById(id) {
+		return this.findOne({id: id}, {include: Manager.getTable("exemplaire")});
+	}
 }
 
 module.exports = ProduitManager;
