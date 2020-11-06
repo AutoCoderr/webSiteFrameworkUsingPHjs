@@ -24,6 +24,6 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "tsc-watch": "^4.2.9"
+    "typescript": "^4.0.5"
   }
 }
