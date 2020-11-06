@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const mysql = require("mysql2");
 const fs = require("fs-extra");
 
-module.exports = class DB {
+export default class DB {
 
 	path;
 	sequelize;
@@ -88,6 +88,6 @@ module.exports = class DB {
 		return require(folder+"/"+files.reverse()[0]);
 	}
 
-	tables = {};
-	migrations = null;
+	tables: Object = {};
+	migrations: Object = {};
 };

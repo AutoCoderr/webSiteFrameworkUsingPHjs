@@ -1,8 +1,8 @@
-import { Produit } from "./Produit";
-import { User } from "./User";
+import Produit from "./Produit";
+import User from "./User";
 import Model from "../Core/Model";
 
-export class Exemplaire extends Model {
+export default class Exemplaire extends Model {
 
 		static table = "Exemplaire";
 

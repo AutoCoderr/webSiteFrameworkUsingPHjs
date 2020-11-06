@@ -1,8 +1,8 @@
 import Helpers from "../Core/Helpers";
 import Model from "../Core/Model";
-import { Exemplaire } from "./Exemplaire";
+import Exemplaire from "./Exemplaire";
 
-export class User extends Model {
+export default class User extends Model {
 
     static table = "User";
 

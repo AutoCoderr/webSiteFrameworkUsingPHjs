@@ -1,10 +1,9 @@
-const app = require("./../autoloader");
-const { Model } = require('sequelize');
+const { Model } = require('sequelize')
 
-const Helpers = app.Core.Helpers,
-	Manager = app.Core.Manager;
+import Helpers from "../Core/Helpers";
+import Manager from "../Core/Manager";
 
-class UserManager extends app.Core.Manager {
+export default class UserManager extends Manager {
 	constructor(generateRelations = true) {
 		class UserSequelize extends Model {
 		}
@@ -23,9 +22,10 @@ class UserManager extends app.Core.Manager {
 			firstname: firstname,
 			lastname: lastname,
 			email: email,
-			password: Helpers.hashPassword(password)
+			password: Helpers.hashPassword(password),
 		};
 		if (permission != null)  {
+			// @ts-ignore
 			config.permission = permission;
 		}
 		return this.ModelSequelize.create(config);
@@ -38,5 +38,3 @@ class UserManager extends app.Core.Manager {
 		});
 	}
 }
-
-module.exports = UserManager;

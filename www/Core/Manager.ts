@@ -1,16 +1,15 @@
-const app = require("../autoloader"),
-	env = require("../env");
 
-const Helpers = app.Core.Helpers,
-	DB = app.Core.DB;
+const env = require("../env");
+import Helpers from "./Helpers";
+import DB from "./DB";
 
-module.exports =
-class Manager {
+export default class Manager {
 
 	ModelSequelize;
 
 	static getTable(name,generateRelation = true) {
-		return (new app.Managers[Helpers.ucFirst(name)+"Manager"](generateRelation)).ModelSequelize;
+		const AManager = require("../Managers/"+Helpers.ucFirst(name)+"Manager");
+		return (new AManager(generateRelation)).ModelSequelize;
 	}
 
 	static generateSequelizeManager(table,manager, generateRelation) {
@@ -79,4 +78,4 @@ class Manager {
 			return this.ModelSequelize.create(config);
 		}
 	}
-};
+}

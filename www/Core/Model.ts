@@ -3,8 +3,9 @@ const app = require("./../autoloader"),
 
 const Helpers = app.Core.Helpers;
 
-module.exports =
-class Model {
+export default class Model {
+
+    static table: string = "";
 
     populate = (entity) => {
         if (entity == null) {
@@ -60,7 +61,7 @@ class Model {
     static async findAll() {
         let manager = new app.Managers[this.table+"Manager"]();
         let entities = await manager.findAll();
-        let models = [];
+        let models: Array<any> = [];
         for (let i=0;i<entities.length;i++) {
             models.push((new app.Models[this.table]).populate(entities[i]))
         }
@@ -73,4 +74,4 @@ class Model {
         return (new app.Models[this.table]).populate(entity);
     }
 
-};
+}

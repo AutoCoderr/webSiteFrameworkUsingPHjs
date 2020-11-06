@@ -1,2 +1,5 @@
+<?phjs
+    const Login = require(root+"Forms/Login").default;
+?>
 <h2>Se connecter</h2>
-<?phjs addModal(PHJS, "forms", app.Forms.Login()) ?>
+<?phjs addModal(PHJS, "forms", Login()) ?>

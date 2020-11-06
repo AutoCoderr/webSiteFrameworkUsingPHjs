@@ -5,7 +5,8 @@
   "main": "start.js",
   "scripts": {
     "start": "npx tsc && node start.js",
-    "watch": "npx tsc -w"
+    "watch": "npx tsc -w",
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,6 @@
   },
   "homepage": "https://github.com/AutoCoderr/webSiteFrameworkUsingPHjs#readme",
   "dependencies": {
-    "auto-loader": "^0.2.0",
     "fs-extra": "^9.0.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"

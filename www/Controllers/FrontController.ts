@@ -1,22 +1,21 @@
 // @ts-ignore
-import { Produit } from "../Models/Produit";
+import Produit from "../Models/Produit";
 // @ts-ignore
-import { View } from "../Core/View";
+import View from "../Core/View";
 
-module.exports = class TestController {
+module.exports = class FrontController {
 
 	PHJS;
 	callback;
 
 	constructor(PHJS, callback) {
-		PHJS.die("CACA");
 		this.PHJS = PHJS;
 		this.callback = callback;
 	}
 
 
 	async indexAction() {
-		//let view = new View(this.PHJS, "accueil");
+		let view = new View(this.PHJS, "accueil");
 
 
 		// Examples of using managers and models to modify or create elements in database
@@ -57,10 +56,10 @@ module.exports = class TestController {
 		this.PHJS.print_r(produit);
 		this.PHJS.echo("<br/>");
 		this.PHJS.print_r(await (await produit.getExemplaires()[0].getUser()).getExemplaires()[0].getProduit());
-
+		*/
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();
-		this.callback();*/
+		this.callback();
 	}
 };

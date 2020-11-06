@@ -3,8 +3,12 @@
 /finish.js
 /db_data
 /node_modules
-/access.log
-/error.log
+access.log
+error.log
 /.idea
+/www/Controllers/*.js
+/www/Core/*.js
+/www/Forms/*.js
+/www/Managers/*.js
 /www/Models/*.js
-/package-lock.json
+package-lock.json

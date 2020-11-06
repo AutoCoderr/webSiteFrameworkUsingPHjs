@@ -1,7 +1,7 @@
-const crypto = require("crypto");
-const fs = require("fs-extra");
+import crypto from "crypto";
+import fs from "fs-extra";
 
-module.exports = class Helpers {
+export default class Helpers {
     constructor() {
     }
 

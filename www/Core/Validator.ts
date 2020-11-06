@@ -1,10 +1,7 @@
-const app = require("./../autoloader");
+import Helpers from "./Helpers";
 
-const Helpers = app.Core.Helpers;
 
-module.exports =
-
-class Validator {
+export default class Validator {
 	datas;
 
 	constructor() {}
@@ -57,7 +54,8 @@ class Validator {
 				return;
 
 			} else if (typeof(field.uniq) != "undefined") {
-				let manager = new app.Managers[field.uniq.table+"Manager"]();
+				// @ts-ignore
+				let manager = new require("../Managers/"+field.uniq.table+"Manager")();
 
 				let where = {};
 				where[name] = this.datas[name];
@@ -134,4 +132,4 @@ class Validator {
 		return false;
 	}
 
-};
+}

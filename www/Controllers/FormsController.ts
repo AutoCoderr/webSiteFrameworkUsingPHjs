@@ -1,4 +1,4 @@
-const app = require("./www/autoloader");
+import View from "../Core/View";
 
 module.exports = class FormsController {
 
@@ -11,13 +11,13 @@ module.exports = class FormsController {
 	}
 
 	registerAction() {
-		let view = new app.Core.View(this.PHJS, "register");
+		let view = new View(this.PHJS, "register");
 		view.render();
 		this.callback();
 	}
 
 	loginAction() {
-		let view = new app.Core.View(this.PHJS, "login");
+		let view = new View(this.PHJS, "login");
 		view.render();
 		this.callback();
 	}

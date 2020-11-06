@@ -1,6 +1,4 @@
-const app = require("./www/autoloader");
-
-const View = app.Core.View;
+import View from "../Core/View";
 
 module.exports = class ProduitsController {
 

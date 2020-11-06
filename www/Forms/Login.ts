@@ -1,9 +1,9 @@
-const app = require("./../autoloader");
+import Helpers from "../Core/Helpers";
 
-module.exports = function Login() {
+export default function Login() {
 	return {
 		config: {
-			action: app.Core.Helpers.getPath("User", "connect"),
+			action: Helpers.getPath("User", "connect"),
 			method: "POST",
 			submit: "Se connecter",
 			actionName: "login",

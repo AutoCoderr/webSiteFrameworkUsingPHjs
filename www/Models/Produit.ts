@@ -1,9 +1,7 @@
-const app = require("./../autoloader");
+import Model from "../Core/Model";
+import Exemplaire from "./Exemplaire";
 
-const Model = app.Core.Model,
-    Exemplaire = app.Models.Exemplaire;
-
-export class Produit extends Model {
+export default class Produit extends Model {
 
     static table = "Produit";
 

@@ -1,9 +1,9 @@
-const app = require("./../autoloader");
+import Helpers from "../Core/Helpers";
 
-module.exports = function Register() {
+export default function Register() {
 	return {
 		config: {
-			action: app.Core.Helpers.getPath("User", "add"),
+			action: Helpers.getPath("User", "add"),
 			method: "POST",
 			submit: "S'inscrire",
 			actionName: "register",

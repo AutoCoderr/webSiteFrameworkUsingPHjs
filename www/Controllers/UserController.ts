@@ -1,12 +1,10 @@
-const app = require("./www/autoloader");
+import Helpers from "../Core/Helpers";
+import Validator from "../Core/Validator";
+import Register from "../Forms/Register";
+import Login from "../Forms/Login";
+import UserManager from "../Managers/UserManager";
 
-const Helpers = app.Core.Helpers,
-	Validator = app.Core.Validator,
-	Register = app.Forms.Register,
-	Login = app.Forms.Login,
-	UserManager = app.Managers.UserManager;
-
-module.exports = class UserController {
+export default class UserController {
 
 	PHJS;
 	callback;
