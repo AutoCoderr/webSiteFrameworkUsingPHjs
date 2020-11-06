@@ -8,7 +8,7 @@
 			if (!file_exist("Controllers/"+config.controller+"Controller.js")) {
 				die("Le controleur "+config.controller+" n'existe pas");
 			}
-			let c = getFile("Controllers/"+config.controller+"Controller.js");
+			let c = require(PHJS.cd+"/Controllers/"+config.controller+"Controller.js");
 			let controller = new c(PHJS, () => {
 				--END--
 			});

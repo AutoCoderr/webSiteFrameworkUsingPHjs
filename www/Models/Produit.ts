@@ -1,40 +1,41 @@
 const app = require("./../autoloader");
 
-const Model = app.Core.Model;
+const Model = app.Core.Model,
+    Exemplaire = app.Models.Exemplaire;
 
-module.exports =
-class Produit extends Model {
+export class Produit extends Model {
 
     static table = "Produit";
 
-    id = null;
-    name = null;
-    description = null;
-    units = null;
-    exemplaires = null;
+    id: number = 0;
+    name: string = "";
+    description: string = "";
+    units: number = 0;
+    exemplaires: Array<typeof Exemplaire> = [];
 
-    setId(id) {
+
+    setId(id: number) {
         this.id = id;
     }
     getId() {
         return this.id;
     }
 
-    setName(name) {
+    setName(name: string) {
         this.name = name.trim();
     }
     getName() {
         return this.name;
     }
 
-    setDescription(description) {
+    setDescription(description: string) {
         this.description = description.trim();
     }
     getDescription() {
         return this.description;
     }
 
-    setUnits(units) {
+    setUnits(units: number) {
         this.units = units;
     }
     getUnits() {
@@ -45,4 +46,4 @@ class Produit extends Model {
         return this.exemplaires;
     }
 
-};
+}

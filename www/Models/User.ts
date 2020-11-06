@@ -1,51 +1,49 @@
-const app = require("./../autoloader");
+import Helpers from "../Core/Helpers";
+import Model from "../Core/Model";
+import { Exemplaire } from "./Exemplaire";
 
-const Helpers = app.Core.Helpers,
-    Model = app.Core.Model;
-
-module.exports =
-class User extends Model {
+export class User extends Model {
 
     static table = "User";
 
-    id = null;
-    email = null;
-    firstname = null;
-    lastname = null;
-    permission = null;
-    password = null;
+    id: number = 0;
+    email: string = "";
+    firstname: string = "";
+    lastname: string = "";
+    permission: string = "";
+    password: string = "";
 
-    exemplaires = null;
+    exemplaires: Array<typeof Exemplaire> = [];
 
-    setId(id) {
+    setId(id: number) {
         this.id = id;
     }
     getId() {
         return this.id;
     }
 
-    setEmail(email) {
+    setEmail(email: string) {
         this.email = email;
     }
     getEmail() {
         return this.email;
     }
 
-    setFirstname(firstname) {
+    setFirstname(firstname: string) {
         this.firstname = firstname.trim();
     }
     getFirstname() {
         return this.firstname;
     }
 
-    setLastname(lastname) {
+    setLastname(lastname: string) {
         this.lastname = lastname.trim();
     }
     getLastname() {
         return this.lastname;
     }
 
-    setPermission(permission = "user") {
+    setPermission(permission: string = "user") {
         if (permission !== "user" && permission !== "seller" && permission !== "admin") {
             permission = "user";
         }
@@ -55,7 +53,7 @@ class User extends Model {
         return this.permission;
     }
 
-    setPassword(password) {
+    setPassword(password: string) {
         this.password = Helpers.hashPassword(password);
     }
     getPassword() {

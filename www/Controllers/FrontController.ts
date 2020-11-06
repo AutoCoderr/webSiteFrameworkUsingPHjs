@@ -1,12 +1,7 @@
-const app = require("./www/autoloader");
-
-const User = app.Models.User,
-	Produit = app.Models.Produit,
-	Exemplaire = app.Models.Exemplaire,
-	UserManager = app.Managers.UserManager,
-	ProduitManager = app.Managers.ProduitManager,
-	ExemplaireManager = app.Managers.ExemplaireManager,
-	Manager = app.Core.Manager;
+// @ts-ignore
+import { Produit } from "../Models/Produit";
+// @ts-ignore
+import { View } from "../Core/View";
 
 module.exports = class TestController {
 
@@ -14,13 +9,14 @@ module.exports = class TestController {
 	callback;
 
 	constructor(PHJS, callback) {
+		PHJS.die("CACA");
 		this.PHJS = PHJS;
 		this.callback = callback;
 	}
 
 
 	async indexAction() {
-		let view = new app.Core.View(this.PHJS, "accueil");
+		//let view = new View(this.PHJS, "accueil");
 
 
 		// Examples of using managers and models to modify or create elements in database
@@ -56,7 +52,7 @@ module.exports = class TestController {
 			console.log(res);
 		});*/
 
-		let produit = await Produit.findById(6);
+		/*let produit = await Produit.findById(6);
 
 		this.PHJS.print_r(produit);
 		this.PHJS.echo("<br/>");
@@ -65,6 +61,6 @@ module.exports = class TestController {
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();
-		this.callback();
+		this.callback();*/
 	}
 };

@@ -1,6 +1,6 @@
-const app = require("./../autoloader");
+//const app = require("./../autoloader");
 
-module.exports = class View {
+export class View {
 	PHJS;
 	view;
 	template;
@@ -30,7 +30,7 @@ module.exports = class View {
 			PHJS.die("Modals/"+modal+".phjs does not exist")
 		}
 		PHJS.varsToPass.form = form;
-		PHJS.varsToPass.app = app;
+		//PHJS.varsToPass.app = app;
 		PHJS.include("Modals/"+modal+".phjs", null, true);
 	};
 
@@ -40,7 +40,7 @@ module.exports = class View {
 
 	render() {
 		this.PHJS.varsToPass.view = this.view;
-		this.PHJS.varsToPass.app = app;
+		//this.PHJS.varsToPass.app = app;
 		this.PHJS.varsToPass.addModal = this.addModal;
 		this.PHJS.include("Views/templates/"+this.template+".phjs", null, true);
 	}

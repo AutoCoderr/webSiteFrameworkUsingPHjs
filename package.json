@@ -4,7 +4,8 @@
   "description": "A web dev framework using nodejs and the PHjs framework",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx tsc && node start.js",
+    "watch": "npx tsc -w"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
     "fs-extra": "^9.0.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "tsc-watch": "^4.2.9"
   }
 }

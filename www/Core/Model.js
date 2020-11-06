@@ -73,4 +73,4 @@ class Model {
         return (new app.Models[this.table]).populate(entity);
     }
 
-}
+};

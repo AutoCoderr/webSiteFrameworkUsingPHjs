@@ -5,4 +5,4 @@ then
     git clone https://github.com/AutoCoderr/PHjs.git PHjs
 fi
 
-node start.js
+npm start
