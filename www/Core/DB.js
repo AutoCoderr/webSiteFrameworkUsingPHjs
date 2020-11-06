@@ -1,6 +1,7 @@
 const env = require("./../env");
 const Sequelize = require("sequelize");
 const mysql = require("mysql2");
+const fs = require("fs-extra");
 
 module.exports = class DB {
 
@@ -9,6 +10,7 @@ module.exports = class DB {
 	conn;
 
 	constructor() {
+		this.migrations = this.getLatestMigration();
 		this.sequelize = new Sequelize(env.DB_DRIVER+"://"+env.DB_USER+":"+env.DB_PASSWORD+"@"+env.DB_HOST+":"+env.DB_PORT+"/"+env.DB_NAME, { operatorsAliases: false });
 		this.conn = mysql.createConnection({
 			host: env.DB_HOST,
@@ -79,69 +81,13 @@ module.exports = class DB {
 		});
 	}
 
+	getLatestMigration() {
+		const folder = __dirname+"/migrations";
+
+		let files = fs.readdirSync(folder);
+		return require(folder+"/"+files.reverse()[0]);
+	}
+
 	tables = {};
-
-	migrations = {
-		user: {
-			id: {
-				type: Sequelize.INTEGER,
-				autoIncrement: true,
-				primaryKey: true,
-				allowNull: false
-			},
-			email: {
-				type: Sequelize.STRING(50),
-				allowNull: false
-			},
-			firstname: {
-				type: Sequelize.STRING(50),
-				allowNull: false
-			},
-			lastname: {
-				type: Sequelize.STRING(50),
-				allowNull: false
-			},
-			permission: {
-				type: Sequelize.ENUM(["admin", "seller", "user"]),
-				defaultValue: "user"
-			},
-			password: {
-				type: Sequelize.STRING(40),
-				allowNull: false
-			},
-			hasMany: "exemplaire"
-		},
-		produit: {
-			id: {
-				type: Sequelize.INTEGER,
-				autoIncrement: true,
-				primaryKey: true,
-				allowNull: false
-			},
-			name: {
-				type: Sequelize.STRING(30),
-				allowNull: false
-			},
-			description: {
-				type: Sequelize.STRING(255),
-				allowNull: false
-			},
-			units: {
-				type: Sequelize.INTEGER,
-				defaultValue: 0
-			},
-			hasMany: "exemplaire"
-		},
-		exemplaire: {
-			units: {
-				type: Sequelize.INTEGER,
-				defaultValue: 1
-			},
-			belongsTo: [
-				"user",
-				'produit'
-			]
-		}
-
-	};
+	migrations = null;
 };
