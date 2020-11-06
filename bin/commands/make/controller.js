@@ -1,5 +1,5 @@
 const fs = require('fs-extra'),
-    Helpers = require('../../../www/Core/Helpers');
+    Helpers = require('../../../www/Core/Helpers').default;
 
 module.exports = function () {
     if (process.argv[3] === undefined) {
