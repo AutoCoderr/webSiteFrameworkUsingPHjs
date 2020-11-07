@@ -1,8 +1,8 @@
 const { Model } = require('sequelize');
 
-import Manager from "../Core/Manager";
+const Manager = require("../Core/Manager").default;
 
-export default class ExemplaireManager extends Manager {
+module.exports = class ExemplaireManager extends Manager {
 	constructor(generateRelations = true) {
 		class ExemplaireSequelize extends Model {
 		}
@@ -19,4 +19,4 @@ export default class ExemplaireManager extends Manager {
 	findById(id) {
 		return this.findOne({id: id}, { include: [Manager.getTable("user"), Manager.getTable("produit")] });
 	}
-}
+};

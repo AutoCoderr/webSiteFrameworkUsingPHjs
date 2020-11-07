@@ -9,12 +9,10 @@ export default class Validator {
 
 	checkForm(PHJS,form,callback) {
 		this.datas = Helpers.getData(form.config.method,PHJS.args);
-		let errors = [];
 
 		if (Object.keys(this.datas).length !== Object.keys(form.fields).length) {
 			return ["Tentative de hack!!"];
 		}
-
 		this.checkFieldsLoop(Object.keys(form.fields), form.fields, [], callback);
 	}
 
@@ -55,7 +53,8 @@ export default class Validator {
 
 			} else if (typeof(field.uniq) != "undefined") {
 				// @ts-ignore
-				let manager = new require("../Managers/"+field.uniq.table+"Manager")();
+				let Amanager = require("../Managers/"+field.uniq.table+"Manager");
+				let manager = new Amanager();
 
 				let where = {};
 				where[name] = this.datas[name];
@@ -89,7 +88,8 @@ export default class Validator {
 
 	checkEmail(field,email) {
 		let regex = RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
-		return regex.test(email);
+		let res = regex.test(email);
+		return res;
 	}
 
 	thereIsASpecialChar(str) {

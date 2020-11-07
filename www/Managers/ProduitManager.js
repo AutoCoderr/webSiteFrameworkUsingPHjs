@@ -1,8 +1,8 @@
 const { Model } = require('sequelize');
 
-import Manager from "../Core/Manager";
+const Manager = require("../Core/Manager").default;
 
-export default class ProduitManager extends Manager {
+module.exports = class ProduitManager extends Manager {
 	constructor(generateRelations = true) {
 		class ProduitSequelize extends Model {
 		}

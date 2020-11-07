@@ -4,7 +4,7 @@ import Register from "../Forms/Register";
 import Login from "../Forms/Login";
 import UserManager from "../Managers/UserManager";
 
-export default class UserController {
+module.exports = class UserController {
 
 	PHJS;
 	callback;

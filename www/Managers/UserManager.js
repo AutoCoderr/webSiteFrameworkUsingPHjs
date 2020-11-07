@@ -1,9 +1,9 @@
 const { Model } = require('sequelize')
 
-import Helpers from "../Core/Helpers";
-import Manager from "../Core/Manager";
+const Helpers = require("../Core/Helpers").default;
+const Manager = require("../Core/Manager").default;
 
-export default class UserManager extends Manager {
+module.exports = class UserManager extends Manager {
 	constructor(generateRelations = true) {
 		class UserSequelize extends Model {
 		}
@@ -37,4 +37,4 @@ export default class UserManager extends Manager {
 			password: Helpers.hashPassword(password)
 		});
 	}
-}
+};
