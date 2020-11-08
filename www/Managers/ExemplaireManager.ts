@@ -1,11 +1,10 @@
-const { Model } = require('sequelize');
+import Manager from "../Core/Manager";
+import rfs from "require-from-string";
+import fs from "fs-extra";
 
-const Manager = require("../Core/Manager").default;
-
-module.exports = class ExemplaireManager extends Manager {
+export default class ExemplaireManager extends Manager {
 	constructor(generateRelations = true) {
-		class ExemplaireSequelize extends Model {
-		}
+		const ExemplaireSequelize = rfs(fs.readFileSync(__dirname+"/getModelSequelize.js", "UTF-8"));
 
 		Manager.generateSequelizeManager("exemplaire", ExemplaireSequelize, generateRelations);
 
@@ -19,4 +18,4 @@ module.exports = class ExemplaireManager extends Manager {
 	findById(id) {
 		return this.findOne({id: id}, { include: [Manager.getTable("user"), Manager.getTable("produit")] });
 	}
-};
+}

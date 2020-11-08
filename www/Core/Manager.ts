@@ -8,7 +8,7 @@ export default class Manager {
 	ModelSequelize;
 
 	static getTable(name,generateRelation = true) {
-		const AManager = require("../Managers/"+Helpers.ucFirst(name)+"Manager");
+		const AManager = require("../Managers/"+Helpers.ucFirst(name)+"Manager").default;
 		return (new AManager(generateRelation)).ModelSequelize;
 	}
 

@@ -54,7 +54,7 @@ export default class Validator {
 			} else if (typeof(field.uniq) != "undefined") {
 				// @ts-ignore
 				let Amanager = require("../Managers/"+field.uniq.table+"Manager");
-				let manager = new Amanager();
+				let manager = new Amanager.default();
 
 				let where = {};
 				where[name] = this.datas[name];

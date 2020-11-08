@@ -9,5 +9,7 @@ error.log
 /www/Controllers/*.js
 /www/Core/*.js
 /www/Forms/*.js
+/www/Managers/*.js
+!/www/Managers/getModelSequelize.js
 /www/Models/*.js
 package-lock.json

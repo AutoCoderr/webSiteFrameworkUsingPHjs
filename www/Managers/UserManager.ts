@@ -1,12 +1,11 @@
-const { Model } = require('sequelize')
+import Manager from "../Core/Manager";
+import Helpers from "../Core/Helpers";
+import rfs from "require-from-string";
+import fs from "fs-extra";
 
-const Helpers = require("../Core/Helpers").default;
-const Manager = require("../Core/Manager").default;
-
-module.exports = class UserManager extends Manager {
+export default class UserManager extends Manager {
 	constructor(generateRelations = true) {
-		class UserSequelize extends Model {
-		}
+		const UserSequelize = rfs(fs.readFileSync(__dirname+"/getModelSequelize.js", "UTF-8"));
 
 		Manager.generateSequelizeManager("user", UserSequelize, generateRelations);
 
