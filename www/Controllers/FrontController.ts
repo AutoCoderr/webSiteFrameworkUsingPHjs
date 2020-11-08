@@ -1,6 +1,8 @@
-// @ts-ignore
+
 import Produit from "../Models/Produit";
-// @ts-ignore
+import User from "../Models/User";
+import UserManager from "../Managers/UserManager";
+import ProduitManager from "../Managers/ProduitManager";
 import View from "../Core/View";
 
 module.exports = class FrontController {
@@ -20,12 +22,13 @@ module.exports = class FrontController {
 
 		// Examples of using managers and models to modify or create elements in database
 
-		/*let user = await User.findById(1);
+		/*let user = await User.findById(4);
 		if (user != null) {
 			user.setFirstname("  Banana    ");
 			(new UserManager()).save(user);
+			this.PHJS.echo("successfull<br/>");
 		} else {
-			console.log("doesn't exist");
+			this.PHJS.echo("doesn't exist<br/>");
 		}*/
 		/*for (let i=0;i<5;i++) {
 			let user = new User();
@@ -51,12 +54,12 @@ module.exports = class FrontController {
 			console.log(res);
 		});*/
 
-		/*let produit = await Produit.findById(6);
+		/*let produit = await Produit.findById(1);
 
 		this.PHJS.print_r(produit);
 		this.PHJS.echo("<br/>");
-		this.PHJS.print_r(await (await produit.getExemplaires()[0].getUser()).getExemplaires()[0].getProduit());
-		*/
+		let user = await produit.getExemplaires()[0].getUser();
+		this.PHJS.print_r(await user.getExemplaires()[0].getProduit());*/
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();

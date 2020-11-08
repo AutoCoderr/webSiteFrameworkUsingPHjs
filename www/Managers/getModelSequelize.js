@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
 
-class ExemplaireSequelize extends Model {
+class ModelSequelize extends Model {
 }
-module.exports = ExemplaireSequelize;
+module.exports = ModelSequelize;

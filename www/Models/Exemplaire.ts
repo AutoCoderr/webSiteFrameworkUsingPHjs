@@ -8,8 +8,8 @@ export default class Exemplaire extends Model {
 
 		id: number = 0;
 		units: number = 0;
-		user: typeof User = User;
-		produit: typeof Produit = Produit;
+		user: null|typeof User = null;
+		produit: null|typeof Produit = null;
 
 		UserId: number = 0;
 		ProduitId: number = 0;

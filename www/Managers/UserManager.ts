@@ -13,7 +13,11 @@ export default class UserManager extends Manager {
 	}
 
 	findById(id) {
-		return this.findOne({id: id}, {include: Manager.getTable("exemplaire")});
+		return super.findById(id, {include: Manager.getTable("exemplaire")});
+	}
+
+	findAll(): any {
+		return super.findAll({include: Manager.getTable("exemplaire")});
 	}
 
 	createUser(firstname,lastname,email,password,permission = null) {

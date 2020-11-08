@@ -1,7 +1,6 @@
-const app = require("./../autoloader"),
-    env = require("./../env");
+const env = require("./../env");
 
-const Helpers = app.Core.Helpers;
+import Helpers from "./Helpers";
 
 export default class Model {
 
@@ -11,6 +10,7 @@ export default class Model {
         if (entity == null) {
             return null;
         }
+        const Models = Helpers.getModels();
 
         for (let key in entity.dataValues) {
             const prefixTests = [env.DB_PREFIX, Helpers.replaceAll(env.DB_PREFIX,"_",""), Helpers.replaceAll(env.DB_PREFIX,"-","")];
@@ -30,14 +30,14 @@ export default class Model {
                         areMany = true;
                     }
 
-                    let modelExists = typeof(app.Models[Helpers.ucFirst(key.substring(0,areMany ? key.length-1 : key.length))]) != "undefined";
+                    let modelExists = typeof(Models[Helpers.ucFirst(key.substring(0,areMany ? key.length-1 : key.length))]) != "undefined";
 
                     if (areMany) {
                         this[key] = [];
                         for (let element of entity.dataValues[key]) {
                             if (modelExists) {
                                 this[key].push(
-                                    (new app.Models[Helpers.ucFirst(key.substring(0,key.length-1))]()).populate(element)
+                                    (new Models[Helpers.ucFirst(key.substring(0,key.length-1))]()).populate(element)
                                 );
                             } else {
                                 this[key].push(element.dataValues);
@@ -45,7 +45,7 @@ export default class Model {
                         }
                     } else {
                         if (modelExists) {
-                            this[key] = (new app.Models[Helpers.ucFirst(key)]()).populate(entity.dataValues[key]);
+                            this[key] = (new Models[Helpers.ucFirst(key)]()).populate(entity.dataValues[key]);
                         } else {
                             this[key] = entity.dataValues[key].dataValues;
                         }
@@ -59,19 +59,26 @@ export default class Model {
     };
 
     static async findAll() {
-        let manager = new app.Managers[this.table+"Manager"]();
+        const Managers = Helpers.getManagers();
+        let manager = new Managers[this.table+"Manager"]();
         let entities = await manager.findAll();
+
+        const Models = Helpers.getModels();
         let models: Array<any> = [];
+
         for (let i=0;i<entities.length;i++) {
-            models.push((new app.Models[this.table]).populate(entities[i]))
+            models.push((new Models[this.table]).populate(entities[i]))
         }
         return models;
     }
 
     static async findById(id) {
-        let manager = new app.Managers[this.table+"Manager"]();
+        const Managers = Helpers.getManagers();
+        let manager = new Managers[this.table+"Manager"]();
         let entity = await manager.findById(id);
-        return (new app.Models[this.table]).populate(entity);
+
+        const Models = Helpers.getModels();
+        return (new Models[this.table]).populate(entity);
     }
 
 }

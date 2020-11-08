@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import fs from "fs-extra";
+import Manager from "./Manager";
 
 export default class Helpers {
     constructor() {
@@ -44,4 +45,25 @@ export default class Helpers {
     }
 
     static ucFirst = str => str.charAt(0).toUpperCase()+str.slice(1);
+
+    static getElements(folderName,inFilename = "") {
+        const folder: string = __dirname+"/../"+folderName;
+        const elements: Object = {};
+
+        let files = fs.readdirSync(folder);
+        for (let file of files) {
+            if (file.slice(-1*(3+inFilename.length)) == inFilename+".js") {
+                elements[file.replace(".js", "")] = (require(folder+"/"+file).default);
+            }
+        }
+        return elements;
+    }
+
+    static getManagers() {
+        return this.getElements("Managers", "Manager");
+    }
+
+    static getModels() {
+        return this.getElements("Models");
+    }
 };

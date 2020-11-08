@@ -49,8 +49,8 @@ export default class Manager {
 		return this.ModelSequelize.findAll(args);
 	}
 
-	findById(id) {
-		return this.findOne({id: id});
+	findById(id, args = {}) {
+		return this.findOne({id: id}, args);
 	}
 
 	findOne(where,args = {}) {
@@ -60,10 +60,12 @@ export default class Manager {
 	}
 
 	async save(model) {
-		if (model.getId() != null) {
+		if (model.getId() != 0) {
 			let entity = await this.findById(model.getId());
 			for (let key in model) {
-				if (key !== "populate" && key !== "table" && key !== "id") {
+				if (key !== "constructor" &&
+					key !== "id" &&
+					typeof(entity.dataValues[key]) != "undefined") {
 					entity[key] = model[key];
 				}
 			}
