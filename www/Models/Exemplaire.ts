@@ -1,53 +1,38 @@
-import Produit from "./Produit";
+import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../Core/DB";
 import User from "./User";
-import Model from "../Core/Model";
+import Produit from "./Produit";
+
+export interface IExemplaire {
+    unit: number;
+}
 
 export default class Exemplaire extends Model {
+    public id!: number;
+    public number!: number;
+}
 
-		static table = "Exemplaire";
+Exemplaire.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        units: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
+    },
+    {
+        tableName: "exemplaire",
+        sequelize, // passing the `sequelize` instance is required
+    }
+);
 
-		id: number = 0;
-		units: number = 0;
-		user: null|typeof User = null;
-		produit: null|typeof Produit = null;
+Exemplaire.belongsTo(User);
+User.hasMany(Exemplaire);
 
-		UserId: number = 0;
-		ProduitId: number = 0;
-
-		setId(id) {
-			this.id = id;
-		}
-		getId() {
-			return this.id;
-		}
-
-		setUnits(units: number) {
-			this.units = units;
-		}
-		getUnits() {
-			return this.units;
-		}
-
-		setUser(user: typeof User) {
-			this.user = user;
-		}
-		async getUser() {
-			if (this.user == null) {
-				// @ts-ignore
-				this.setUser(await User.findById(this.UserId));
-			}
-			return this.user;
-		}
-
-		setProduit(produit: typeof Produit) {
-			this.produit = produit;
-		}
-		async getProduit() {
-			if (this.produit == null) {
-				// @ts-ignore
-				this.setProduit(await Produit.findById(this.ProduitId));
-			}
-			return this.produit;
-		}
-
-	}
+Exemplaire.belongsTo(Produit);
+Produit.hasMany(Exemplaire);

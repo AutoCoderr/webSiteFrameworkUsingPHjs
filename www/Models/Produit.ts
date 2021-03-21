@@ -1,47 +1,42 @@
-import Model from "../Core/Model";
-import Exemplaire from "./Exemplaire";
+import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../Core/DB";
+
+export interface IProduit {
+    name: string;
+    description: string;
+    units: number;
+}
 
 export default class Produit extends Model {
-
-    static table = "Produit";
-
-    id: number = 0;
-    name: string = "";
-    description: string = "";
-    units: number = 0;
-    exemplaires: Array<typeof Exemplaire> = [];
-
-
-    setId(id: number) {
-        this.id = id;
-    }
-    getId() {
-        return this.id;
-    }
-
-    setName(name: string) {
-        this.name = name.trim();
-    }
-    getName() {
-        return this.name;
-    }
-
-    setDescription(description: string) {
-        this.description = description.trim();
-    }
-    getDescription() {
-        return this.description;
-    }
-
-    setUnits(units: number) {
-        this.units = units;
-    }
-    getUnits() {
-        return this.units;
-    }
-
-    getExemplaires() {
-        return this.exemplaires;
-    }
-
+    public id!: number;
+    public name!: string;
+    public description!: string;
+    public units!: number;
 }
+
+Produit.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        name: {
+            type: DataTypes.STRING(30),
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.STRING(255),
+            allowNull: false
+        },
+        units: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+    },
+    {
+        tableName: "produit",
+        sequelize, // passing the `sequelize` instance is required
+    }
+);

@@ -53,12 +53,11 @@ export default class Validator {
 
 			} else if (typeof(field.uniq) != "undefined") {
 				// @ts-ignore
-				let Amanager = require("../Managers/"+field.uniq.table+"Manager");
-				let manager = new Amanager.default();
+				let repository = require("../Repositories/"+field.uniq.table+"Repository").default;
 
 				let where = {};
-				where[name] = this.datas[name];
-				manager.findOne(where).then((elem) => {
+				where[field.uniq.column] = this.datas[name];
+				repository.findOneByParams({where}).then((elem) => {
 					if (elem != null) {
 						errors.push(field.uniq.msgError);
 					}
@@ -78,7 +77,6 @@ export default class Validator {
 
 			(typeof(field.confirmWith) == "undefined" &&
 				(!this.thereIsAMinChar(password) ||
-				!this.thereIsAMinChar(password) ||
 				!this.thereIsANumber(password) ||
 				!this.thereIsASpecialChar(password))
 			)

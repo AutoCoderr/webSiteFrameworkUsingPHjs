@@ -1,6 +1,6 @@
 version: '3'
 services:
-  phjs:
+  server:
     build: site
     ports :
       - "80:80"
@@ -9,22 +9,21 @@ services:
     depends_on:
       - database
     networks:
-      - phjsDb
-      - phjsExternal
+      - db
+      - exterior
 
   database:
-    image: mysql:5.7
+    image: postgres:9.6-alpine
     environment:
-      MYSQL_DATABASE: phjs_database
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      - POSTGRES_DB=db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pwd
     volumes:
-      - ./db_data:/var/lib/mysql
-    restart: always
+      - ./db_data:/var/lib/postgresql/data:rw
+    ports:
+      - '5432:5432'
     networks:
-      - phjsDb
-      - pmaDb
+      - db
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -35,16 +34,12 @@ services:
     environment:
       - PMA_ARBITRARY=1
     networks:
-      - pmaDb
-      - pmaExternal
+      - db
+      - exterior
 
 networks:
-  phjsExternal:
+  exterior:
     internal: false
-  pmaExternal:
-    internal: false
-  phjsDb:
-    internal: true
-  pmaDb:
+  db:
     internal: true
 

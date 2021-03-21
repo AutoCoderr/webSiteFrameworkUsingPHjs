@@ -2,7 +2,8 @@ import Helpers from "../Core/Helpers";
 import Validator from "../Core/Validator";
 import Register from "../Forms/Register";
 import Login from "../Forms/Login";
-import UserManager from "../Managers/UserManager";
+import User from "../Entities/User";
+import UserRepository from "../Repositories/UserRepository";;
 
 module.exports = class UserController {
 
@@ -21,10 +22,16 @@ module.exports = class UserController {
 		const form = Register();
 		const validator = new Validator();
 		const datas = Helpers.getData(form.config.method,this.PHJS.args);
-		validator.checkForm(this.PHJS,form, (errors) => {
+		validator.checkForm(this.PHJS,form, async (errors) => {
 			this.PHJS.session.errors[form.config.actionName] = errors;
 			if (this.PHJS.session.errors[form.config.actionName].length === 0) {
-				(new UserManager()).createUser(datas.firstname, datas.lastname, datas.email, datas.password).then(this.loginAndRedirect);
+				let user = new User();
+				user.setFirstname(datas.firstname);
+				user.setLastname(datas.lastname);
+				user.setEmail(datas.email);
+				user.setPassword(datas.password);
+				await user.save();
+				this.loginAndRedirect(user);
 			} else {
 				this.getErrorAndRedirect(form,datas);
 			}
@@ -33,32 +40,27 @@ module.exports = class UserController {
 	}
 
 	logoutAction() {
-		delete this.PHJS.session.id;
-		delete this.PHJS.session.firstname;
-		delete this.PHJS.session.lastname;
-		delete this.PHJS.session.email;
+		delete this.PHJS.session.user;
 
 		this.PHJS.redirectTo(Helpers.getPath("Front", "index"));
 		this.callback();
 	}
 
-	connectAction() {
+	async connectAction() {
 
 		let datas = Helpers.getData("POST",this.PHJS.args);
-		(new UserManager()).loginUser(datas.email, datas.password).then((user) => {
-			if (!user) {
-				if (typeof(this.PHJS.session.errors) == "undefined") {
-					this.PHJS.session.errors = {};
-				}
-				this.PHJS.session.errors[Login().config.actionName] = [Login().config.msgError];
-				this.getErrorAndRedirect(Login(),datas)
-			} else {
-				this.loginAndRedirect(user);
+		let user = await UserRepository.findOneByEmailAndPassword(datas.email, datas.password);
+
+		if (user == null) {
+			if (typeof(this.PHJS.session.errors) == "undefined") {
+				this.PHJS.session.errors = {};
 			}
-		});
+			this.PHJS.session.errors[Login().config.actionName] = [Login().config.msgError];
+			this.getErrorAndRedirect(Login(),datas)
+		} else {
+			this.loginAndRedirect(user);
+		}
 	}
-
-
 
 
 
@@ -73,11 +75,8 @@ module.exports = class UserController {
 		this.callback();
 	}
 
-	loginAndRedirect = (user) => {
-		this.PHJS.session.id = user.dataValues.id;
-		this.PHJS.session.firstname = user.dataValues.firstname;
-		this.PHJS.session.lastname = user.dataValues.lastname;
-		this.PHJS.session.email = user.dataValues.email;
+	loginAndRedirect = (user: User) => {
+		this.PHJS.session.user = user.serialize();
 		this.PHJS.redirectTo(Helpers.getPath("Front", "index"));
 		this.callback();
 	}

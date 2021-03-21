@@ -1,6 +1,6 @@
-const DB = require("../../../www/Core/DB").default;
+const Migration = require("../../../www/Core/Migration").default;
 
-module.exports = function() { // console migration:migrate
-    const db = new DB();
-    db.migrate();
+module.exports = async function() { // console migration:migrate
+    await Migration.migrate();
+    process.exit();
 }

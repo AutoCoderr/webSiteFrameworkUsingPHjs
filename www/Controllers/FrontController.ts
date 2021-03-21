@@ -1,8 +1,3 @@
-
-import Produit from "../Models/Produit";
-import User from "../Models/User";
-import UserManager from "../Managers/UserManager";
-import ProduitManager from "../Managers/ProduitManager";
 import View from "../Core/View";
 
 module.exports = class FrontController {
