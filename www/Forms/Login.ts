@@ -3,7 +3,7 @@ import Helpers from "../Core/Helpers";
 export default function Login() {
 	return {
 		config: {
-			action: Helpers.getPath("User", "connect"),
+			action: Helpers.getPath("User", "login"),
 			method: "POST",
 			submit: "Se connecter",
 			actionName: "login",
@@ -21,9 +21,9 @@ export default function Login() {
 			password: {
 				type: "password",
 				label: "Votre mot de passe",
-				minLength: 8,
 				required: true,
-				msgError: "Format de mot de passe incorrect"
+				msgError: "Format de mot de passe incorrect",
+				checkValid: false
 			}
 		}
 	}

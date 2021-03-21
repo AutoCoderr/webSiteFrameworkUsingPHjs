@@ -10,16 +10,6 @@ module.exports = class FormsController {
 		this.callback = callback;
 	}
 
-	registerAction() {
-		let view = new View(this.PHJS, "register");
-		view.render();
-		this.callback();
-	}
 
-	loginAction() {
-		let view = new View(this.PHJS, "login");
-		view.render();
-		this.callback();
-	}
 
 };

@@ -4,15 +4,11 @@
 		"action": "index"
 	},
 	"/user/register": {
-		"controller": "Forms",
+		"controller": "User",
 		"action": "register"
 	},
-	"/user/add": {
-		"controller": "User",
-		"action": "add"
-	},
 	"/user/login": {
-		"controller": "Forms",
+		"controller": "User",
 		"action": "login"
 	},
 	"/user/connect": {

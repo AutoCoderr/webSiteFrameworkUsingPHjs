@@ -3,7 +3,7 @@ import Helpers from "../Core/Helpers";
 export default function Register() {
 	return {
 		config: {
-			action: Helpers.getPath("User", "add"),
+			action: Helpers.getPath("User", "register"),
 			method: "POST",
 			submit: "S'inscrire",
 			actionName: "register",

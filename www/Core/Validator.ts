@@ -3,53 +3,67 @@ import Helpers from "./Helpers";
 
 export default class Validator {
 	datas;
+	PHJS;
+	form;
 
-	constructor() {}
-
-
-	checkForm(PHJS,form,callback) {
+	constructor(PHJS,form) {
 		this.datas = Helpers.getData(form.config.method,PHJS.args);
-
-		if (Object.keys(this.datas).length !== Object.keys(form.fields).length) {
-			return ["Tentative de hack!!"];
-		}
-		this.checkFieldsLoop(Object.keys(form.fields), form.fields, [], callback);
+		this.PHJS = PHJS;
+		this.form = form;
 	}
 
-	checkFieldsLoop(names,fields,errors,callback, i=0) {
-		if (i >= names.length) {
-			callback(errors);
-		} else {
-			const name = names[i];
-			const field = fields[name];
+	isSubmitted() {
+		return (this.datas.action == this.form.config.actionName);
+	}
+	async isValid() {
+		delete this.datas.action;
+		if (Object.keys(this.datas).length !== Object.keys(this.form.fields).length) {
+			return ["Tentative de hack!!"];
+		}
+		const errors = await this.checkFields();
+		if (errors.length == 0) return true;
+
+		if(typeof(this.PHJS.session.errors) == "undefined") {
+			this.PHJS.session.errors = [];
+		}
+		if (typeof(this.PHJS.session.fields) == "undefined") {
+			this.PHJS.session.fields = {};
+		}
+
+		this.PHJS.session.errors[this.form.config.actionName] = errors;
+		this.PHJS.session.fields[this.form.config.actionName] = {...this.datas};
+
+		return false;
+	}
+
+	async checkFields() {
+		let errors: Array<string> = [];
+
+		for (let name in this.form.fields) {
+			const field = this.form.fields[name];
 
 			if (typeof(this.datas[name]) == "undefined") {
 				errors.push("Champs '"+name+"' manquant!");
-				this.checkFieldsLoop(names,fields,errors,callback,i+1);
-				return;
+				continue;
 			}
 
 			if (field.required && this.datas[name] === "") {
 				errors.push(("Champs '"+name+"' vide!"));
-				this.checkFieldsLoop(names,fields,errors,callback,i+1);
-				return;
+				continue;
 			}
 
 			if (this.datas[name].length < field.minLength && this.datas[name].length > field.maxLength) {
 				errors.push(field.msgError);
-				this.checkFieldsLoop(names,fields,errors,callback,i+1);
-				return;
+				continue;
 			}
 
 			if (
 				(this.datas[name].length < field.minLength || this.datas[name].length > field.maxLength) ||
 
-				(typeof(this["check"+Helpers.ucFirst(field.type)]) == "function" &&
+				(field.checkValid && typeof(this["check"+Helpers.ucFirst(field.type)]) == "function" &&
 					!this["check"+Helpers.ucFirst(field.type)](field,this.datas[name]))
 			) {
 				errors.push(field.msgError);
-				this.checkFieldsLoop(names,fields,errors,callback,i+1);
-				return;
 
 			} else if (typeof(field.uniq) != "undefined") {
 				// @ts-ignore
@@ -57,17 +71,13 @@ export default class Validator {
 
 				let where = {};
 				where[field.uniq.column] = this.datas[name];
-				repository.findOneByParams({where}).then((elem) => {
-					if (elem != null) {
+				const elem = await repository.findOneByParams({where});
+				if (elem != null) {
 						errors.push(field.uniq.msgError);
-					}
-					this.checkFieldsLoop(names,fields,errors,callback,i+1);
-				});
-				return;
+				}
 			}
-
-			this.checkFieldsLoop(names,fields,errors,callback,i+1);
 		}
+		return errors;
 	}
 
 
@@ -77,8 +87,10 @@ export default class Validator {
 
 			(typeof(field.confirmWith) == "undefined" &&
 				(!this.thereIsAMinChar(password) ||
+				!this.thereIsAMajChar(password) ||
 				!this.thereIsANumber(password) ||
-				!this.thereIsASpecialChar(password))
+				!this.thereIsASpecialChar(password) ||
+				password.length < 10)
 			)
 		);
 

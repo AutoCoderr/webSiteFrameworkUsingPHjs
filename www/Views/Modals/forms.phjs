@@ -27,6 +27,7 @@
 			<?= field.required ? " required='required'" : "" ?>
 		/><br/>
 	<?phjs } ?>
+	<input name="action" type="hidden" value="<?= form.config.actionName ?>"/>
 	<input type="submit" value="<?= form.config.submit ?>"/>
 </form>
 

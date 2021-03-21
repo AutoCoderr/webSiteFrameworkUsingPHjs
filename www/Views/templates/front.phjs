@@ -15,8 +15,8 @@
 				<li><a href="<?= Helpers.getPath('User','logout') ?>">Se deconnecter</a></li>
 				<li><?= PHJS.session.user.firstname+" "+PHJS.session.user.lastname ?></li>
 			<?phjs } else { ?>
-				<li><a href="<?= Helpers.getPath('Forms', 'login') ?>">Se connecter</a></li>
-				<li><a href="<?= Helpers.getPath('Forms','register') ?>">S'insrire</a></li>
+				<li><a href="<?= Helpers.getPath('User', 'login') ?>">Se connecter</a></li>
+				<li><a href="<?= Helpers.getPath('User','register') ?>">S'insrire</a></li>
 			<?phjs } ?>
 		</ul>
 	</header>
