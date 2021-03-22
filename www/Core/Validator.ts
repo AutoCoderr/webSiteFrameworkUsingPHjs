@@ -60,7 +60,7 @@ export default class Validator {
 			if (
 				(this.datas[name].length < field.minLength || this.datas[name].length > field.maxLength) ||
 
-				(field.checkValid && typeof(this["check"+Helpers.ucFirst(field.type)]) == "function" &&
+				((field.checkValid || field.checkValid == undefined) && typeof(this["check"+Helpers.ucFirst(field.type)]) == "function" &&
 					!this["check"+Helpers.ucFirst(field.type)](field,this.datas[name]))
 			) {
 				errors.push(field.msgError);

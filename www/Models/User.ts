@@ -1,5 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../Core/DB";
+import env from "../env.js";
+const {DB_PREFIX} = env;
 
 export interface IUser {
     email: string;
@@ -47,7 +49,7 @@ User.init(
         },
     },
     {
-        tableName: "user",
+        tableName: DB_PREFIX+"user",
         sequelize, // passing the `sequelize` instance is required
     }
 );

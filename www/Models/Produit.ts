@@ -1,5 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../Core/DB";
+import env from "../env.js";
+const {DB_PREFIX} = env;
 
 export interface IProduit {
     name: string;
@@ -36,7 +38,7 @@ Produit.init(
         },
     },
     {
-        tableName: "produit",
+        tableName: DB_PREFIX+"produit",
         sequelize, // passing the `sequelize` instance is required
     }
 );

@@ -2,6 +2,8 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../Core/DB";
 import User from "./User";
 import Produit from "./Produit";
+import env from "../env.js";
+const {DB_PREFIX} = env;
 
 export interface IExemplaire {
     unit: number;
@@ -26,7 +28,7 @@ Exemplaire.init(
         },
     },
     {
-        tableName: "exemplaire",
+        tableName: DB_PREFIX+"exemplaire",
         sequelize, // passing the `sequelize` instance is required
     }
 );

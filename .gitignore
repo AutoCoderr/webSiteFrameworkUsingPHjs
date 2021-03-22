@@ -1,6 +1,4 @@
 /PHjs
-/website
-/finish.js
 /db_data
 /node_modules
 access.log
@@ -9,7 +7,7 @@ error.log
 /www/Controllers/*.js
 /www/Core/*.js
 /www/Forms/*.js
-/www/Managers/*.js
-!/www/Managers/getModelSequelize.js
+/www/Repositories/*.js
 /www/Models/*.js
+/www/Entities/*.js
 package-lock.json
