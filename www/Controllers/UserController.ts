@@ -7,14 +7,12 @@ import UserRepository from "../Repositories/UserRepository";
 import View from "../Core/View";
 
 
-module.exports = class UserController {
+export default class UserController {
 
 	PHJS;
-	callback;
 
-	constructor(PHJS,callback) {
+	constructor(PHJS) {
 		this.PHJS = PHJS;
-		this.callback = callback;
 	}
 
 	async registerAction() {
@@ -37,7 +35,6 @@ module.exports = class UserController {
 		let view = new View(this.PHJS, "register");
 		view.assign("form", form);
 		view.render();
-		this.callback();
 	}
 
 	async loginAction() {
@@ -62,20 +59,17 @@ module.exports = class UserController {
 		let view = new View(this.PHJS, "login");
 		view.assign("form", form);
 		view.render();
-		this.callback();
 	}
 
 	logoutAction() {
 		delete this.PHJS.session.user;
 
 		this.PHJS.redirectTo(Helpers.getPath("Front", "index"));
-		this.callback();
 	}
 
 	loginAndRedirect = (user: User) => {
 		this.PHJS.session.user = user.serialize();
 		this.PHJS.redirectTo(Helpers.getPath("Front", "index"));
-		this.callback();
 	}
 
 };

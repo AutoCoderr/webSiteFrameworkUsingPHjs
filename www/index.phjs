@@ -8,14 +8,15 @@
 			if (!file_exist("Controllers/"+config.controller+"Controller.js")) {
 				die("Le controleur "+config.controller+" n'existe pas");
 			}
-			let c = require(PHJS.cd+"/Controllers/"+config.controller+"Controller.js");
-			let controller = new c(PHJS, () => {
-				--END--
-			});
+			let c = require(PHJS.cd+"/Controllers/"+config.controller+"Controller.js").default;
+			let controller = new c(PHJS);
 			if (typeof(controller[config.action+"Action"]) != "function") {
 				die("L'action "+config.action+" n'existe pas");
 			} else {
-				controller[config.action+"Action"]();
+				(async () => {
+					await controller[config.action+"Action"]();
+					end();
+				})();
 				return;
 			}
 		}

@@ -26,13 +26,13 @@ module.exports = function () {
         });
     });
 
-    fs.readFile(__dirname+"/../../../www/Core/Types/ControllerType.js", 'utf-8', function(error, content) {
+    fs.readFile(__dirname+"/../../../www/Core/Types/ControllerType.ts", 'utf-8', function(error, content) {
         if (error) throw error;
         for (let variable in variables) {
             content = Helpers.replaceAll(content, "__"+variable+"__", variables[variable]);
         }
 
-        fs.writeFile(__dirname+'/../../../www/Controllers/'+variables.controller_name+".js", content, function (err) {
+        fs.writeFile(__dirname+'/../../../www/Controllers/'+variables.controller_name+".ts", content, function (err) {
             if (err) throw console.log(err);
             console.log('Controller '+variables.controller_name+' created');
         });

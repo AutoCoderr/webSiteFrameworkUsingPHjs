@@ -1,13 +1,11 @@
 import View from "../Core/View";
 
-module.exports = class FrontController {
+export default class FrontController {
 
 	PHJS;
-	callback;
 
-	constructor(PHJS, callback) {
+	constructor(PHJS) {
 		this.PHJS = PHJS;
-		this.callback = callback;
 	}
 
 
@@ -58,6 +56,5 @@ module.exports = class FrontController {
 
 		view.assign("currentPath", this.PHJS.cd);
 		view.render();
-		this.callback();
 	}
 };
